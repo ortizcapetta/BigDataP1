@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	
+	<title>
+		Data Visualization
+	</title>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+	<div style="width: 500px;
+    height:1250px;
+    left: 0;
+    top: 0
+    position: absolute;">
+	<script>
+		function getMax(d){
+			var max = 0 
+			for (var i = d.length - 1; i >= 0; i--) {
+
+				if(parseInt(d[i].cnt) > max){
+					max = parseInt(d[i].cnt)
+				}
+			}
+			return max
+		}
+		
+	</script>
+</div>
+
+<div style="width: 500px;
+    height:1250px;
+    left: 550px;
+    top: 0
+    position: absolute;">
+
+	<script>
+		d3.tsv("data2.tsv", function(data) {
+			console.log("all keywords: ")
+						console.log(data)
+
+			data.sort(function(a,b){return b.cnt-a.cnt})
+			var canvas = d3.select("div").append("svg")
+				.attr("width", 500)
+				.attr("height", 50*25)
+				.attr("y", 700)
+
+			var widthscale = d3.scale.linear()
+								.domain([0,getMax(data)])
+								.range([0, 500])
+			dataNew = data.slice(0,50)
+			canvas.selectAll("rect")
+				.data(dataNew)
+				.enter()
+				.append("rect")
+				.attr("width", function(d){return widthscale(d.cnt)})
+				.attr("height", 48)
+				.attr("y", function(d, i){return i*50 +20})
+				.attr("fill", "pink")
+
+			canvas.selectAll("text")
+				.data(dataNew)
+				.enter()
+				.append("text")
+				.attr("fill", "black")
+				.attr("y", function(d, i){return i*50 + 40})
+				.text(function(d){return d.word + ": " + d.cnt})
+
+canvas.append("text")
+        .attr("x", (500 / 2))             
+        .attr("y", 20)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("Keywords");
+		});
+
+
+	</script>
+</div>
+
+
+</body>
+</html>
