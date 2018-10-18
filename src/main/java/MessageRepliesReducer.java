@@ -24,7 +24,8 @@ public class MessageRepliesReducer extends Reducer<Text, Text, Text, Text> {
         
         for (Text value : values ){
             count++;
-            r = value.toString() + " ";
+            r = value.toString() + "|";
+ 
         }
        
         context.write(key, new Text(r));

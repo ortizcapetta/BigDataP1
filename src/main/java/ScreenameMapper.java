@@ -19,7 +19,7 @@ public class ScreenameMapper extends Mapper<LongWritable, Text, Text, IntWritabl
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
     	
 	 	JsonNode twitter_data = new ObjectMapper().readTree(value.toString());
-        String screen_name = twitter_data.get("user").get("name").textValue();
+        String screen_name = twitter_data.get("user").get("screen_name").textValue();
         context.write(new Text(screen_name), new IntWritable(1));
         
         	 

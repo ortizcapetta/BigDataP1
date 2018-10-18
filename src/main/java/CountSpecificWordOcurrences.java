@@ -42,6 +42,7 @@ public class CountSpecificWordOcurrences{
             job.setOutputValueClass(IntWritable.class);
         	
         }else if(args[0].toString().toLowerCase().equals("mr4")) {
+        	System.out.println("There are no retweets in these files");
         	System.exit(0);
         	
         }else if(args[0].toString().toLowerCase().equals("mr5")) {
